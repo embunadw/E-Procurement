@@ -1,0 +1,256 @@
+generator satriaClient {
+  provider = "prisma-client-js"
+  output   = "../generated/satria-client"
+}
+
+datasource satria {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL_SATRIA")
+}
+
+model ms_user {
+  user_id         Int                 @id @default(autoincrement())
+  username        String              @unique
+  password        String
+  personal_number String
+  dept            String
+  department      String
+  division        String
+  email_sf        String
+  role            String
+  created_at      DateTime
+  is_deleted      Int                 @default(0)
+
+  materialGroups  ms_material_group[]
+  plants          ms_plant[]
+  rfqs            trs_rfq[]
+  materials       ms_material[]
+  vendors         ms_vendor[]
+  Subcontractor   Subcontractor[]
+}
+
+model ms_plant {
+  plant_id   Int       @id @default(autoincrement())
+  plant      String
+  postcode   Int
+  city       String
+  name       String
+  is_deleted Int       @default(0)
+  user_id    Int
+  user       ms_user   @relation(fields: [user_id], references: [user_id])
+  materials  ms_material[]
+}
+
+model ms_material_group {
+  material_group_id          Int           @id @default(autoincrement())
+  material_type              String
+  material_group             String
+  material_group_description String?
+  is_deleted                 Int           @default(0)
+  user_id                    Int
+  user                       ms_user       @relation(fields: [user_id], references: [user_id])
+  materials                  ms_material[]
+}
+
+model ms_material {
+  material_id          Int               @id @default(autoincrement())
+  material_group_id    Int
+  material_number      String
+  base_unit            String
+  plant_id             Int
+  is_deleted           Int               @default(0)
+  material_description String
+
+  materialGroup        ms_material_group @relation(fields: [material_group_id], references: [material_group_id], onUpdate: NoAction, onDelete: NoAction)
+  plant                ms_plant          @relation(fields: [plant_id], references: [plant_id], onUpdate: NoAction, onDelete: NoAction)
+  users                ms_user[]
+}
+
+
+model ms_vendor {
+  vendor_id         Int                @id @default(autoincrement())
+  name              String
+  email             String
+  country_code      String
+  postal_code       String
+  address           String
+  vendor_code       String             @satria.NVarChar(100)
+  phone_no          String
+  vendor_type       String
+  email_po          String
+  created_at        DateTime
+  created_by        String
+  updated_at        DateTime
+  last_modified_by  String
+  is_deleted        Int                @default(0)
+  password          String
+
+  register_vendor   register_vendor[]
+  rfqVendors        trs_rfq_vendor[]
+  vendor_quotations vendor_quotation[]
+  users             ms_user[]
+}
+
+model register_vendor {
+  id              Int                @id @default(autoincrement())
+  company_name    String
+  email           String             @unique
+  password        String
+  telephone       String
+  address         String
+  nib             String?
+  vendor_category String
+  referral        String?
+  company_aff_id  Int
+  vendor_id       Int?
+  created_at      DateTime           @default(now())
+
+  vendor          ms_vendor?         @relation(fields: [vendor_id], references: [vendor_id])
+  kbli_details    ms_kbli_detail[]
+}
+
+model ms_kbli {
+  id          Int               @id @default(autoincrement())
+  year        String
+  code        String
+  title       String
+  description String            @satria.Text
+  enable      Int               @default(1)
+  created_at  DateTime          @default(now())
+  updated_at  DateTime          @updatedAt
+
+  details     ms_kbli_detail[]
+}
+
+model ms_kbli_detail {
+  id                   Int              @id @default(autoincrement())
+  kbli_id              Int
+  register_vendor_id   Int
+
+  kbli                 ms_kbli          @relation(fields: [kbli_id], references: [id])
+  register_vendor      register_vendor  @relation(fields: [register_vendor_id], references: [id])
+}
+
+model trs_rfq {
+  rfq_id            Int               @id @default(autoincrement())
+  user_id           Int
+  rfq_category      String
+  rfq_type          String
+  rfq_number        String
+  rfq_title         String
+  rfq_specification String
+  rfq_duedate       DateTime?
+  is_active         Int
+  is_release        Int
+  release_by        String
+  release_by_name   String
+  release_at        DateTime?
+  is_locked         Int
+  is_deleted        Int
+  status            Int
+  created_by        String
+  created_at        DateTime?
+  updated_by        String
+  updated_at        DateTime?
+  approved_at       DateTime?
+  is_approved       String?
+
+  user              ms_user           @relation(fields: [user_id], references: [user_id])
+  details           trs_rfq_detail[]
+  files             trs_rfq_file[]
+  pictures          trs_rfq_picture[]
+  vendors           trs_rfq_vendor[]
+}
+
+model trs_rfq_vendor {
+  id               Int       @id @default(autoincrement())
+  rfq_id           Int
+  vendor_id        Int
+  status           Int
+  created_at       DateTime
+  last_modified_at DateTime
+  last_modified_by String
+  is_deleted       Int       @default(0)
+
+  rfq              trs_rfq   @relation(fields: [rfq_id], references: [rfq_id])
+  vendor           ms_vendor @relation(fields: [vendor_id], references: [vendor_id])
+}
+
+model trs_rfq_detail {
+  id                Int                @id @default(autoincrement())
+  rfq_id            Int
+  pr_number         String
+  pr_item           String
+  part_number       String
+  description       String
+  pr_qty            Float
+  pr_uom            String
+  matgroup          String
+  status            Int
+  created_at        DateTime
+  last_modified_at  DateTime
+  last_modified_by  String
+  is_deleted        Int                @default(0)
+  source_type       String?            @satria.VarChar(20)
+
+  rfq               trs_rfq            @relation(fields: [rfq_id], references: [rfq_id])
+  vendor_quotations vendor_quotation[]
+}
+
+model trs_rfq_file {
+  id         Int      @id @default(autoincrement())
+  rfq_id     Int
+  filename   String
+  created_at DateTime
+  created_by String
+  updated_at DateTime
+  updated_by String
+  is_deleted Int      @default(0)
+  source     Bytes?
+
+  rfq        trs_rfq  @relation(fields: [rfq_id], references: [rfq_id])
+}
+
+model trs_rfq_picture {
+  id         Int      @id @default(autoincrement())
+  rfq_id     Int
+  filename   String
+  source     Bytes
+  created_at DateTime
+  created_by String
+  updated_at DateTime
+  updated_by String
+  is_deleted Int      @default(0)
+
+  rfq        trs_rfq  @relation(fields: [rfq_id], references: [rfq_id])
+}
+
+model vendor_quotation {
+  id            Int            @id @default(autoincrement())
+  rfq_detail_id Int
+  vendor_id     Int
+  price         Float?
+  moq           Int?
+  valid_until   DateTime?
+  attachment    Bytes?
+  is_submitted  Boolean        @default(false)
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+
+  rfq_detail    trs_rfq_detail @relation(fields: [rfq_detail_id], references: [id])
+  vendor        ms_vendor      @relation(fields: [vendor_id], references: [vendor_id])
+
+  @@unique([rfq_detail_id, vendor_id])
+  @@map("vendor_quotation")
+}
+
+model Subcontractor {
+  id             Int       @id @default(autoincrement())
+  Material       String    @satria.VarChar(255)
+  Description    String?   @satria.VarChar(500)
+  material_group String?   @satria.VarChar(100)
+  uom            String?   @satria.VarChar(50)
+  users          ms_user[] 
+
+  @@map("Subcontractor")
+}

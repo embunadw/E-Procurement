@@ -1,0 +1,218 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f8fa;
+  width: 100%;             /* Tambah agar full horizontal */
+}
+
+
+.loginWrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  width: 100%;             /* Tambah ini biar konten bisa full */
+  max-width: 1440px;       /* Optional batas maksimum layout */
+  margin: 0 auto;          /* Biar tetap center horizontal */
+}
+
+
+.contentWrapper {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  max-width: 900px;
+  width: 100%;
+  overflow: hidden;
+  min-height: 450px; /* tinggi minimum agar tidak terlalu kecil */
+}
+
+/* Bagian kiri untuk logo */
+.imageContainer {
+  flex: 0 0 280px; /* Lebar tetap untuk kiri */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  border-right: 1px solid #ddd; /* garis pembatas */
+}
+
+/* Wrapper untuk dua logo vertikal */
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logoWrapper img {
+  max-width: 180px;
+  object-fit: contain;
+}
+
+/* Gambar dump truck sebagai ilustrasi, di bawah logo */
+.imageDumpTruck {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Bagian kanan untuk form login */
+.loginCard {
+  flex: 1; /* mengambil sisa lebar */
+  padding: 3rem 3rem;
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.title::after {
+  content: "";
+  display: block;
+  width: 100%;              /* garis penuh */
+  height: 1.5px;            /* ketebalan garis */
+  background-color: #d1d5db; /* abu-abu netral */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.inputEmail,
+.inputPassword {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.inputEmail.errorMessage,
+.inputPassword.errorMessage {
+  border-color: #dc2626;
+}
+
+.inputEmail:focus,
+.inputPassword:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 6px #3b82f6aa;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggleBtn {
+  position: absolute;
+  right: 0.75rem;
+  cursor: pointer;
+  color: #666;
+  user-select: none;
+  font-size: 1.2rem;
+}
+
+.btnSubmit {
+  width: 100px;
+  height: 40px;
+  background-color: #dc2626;  /* merah */
+  color: white;
+  border: none;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  display: block;             /* agar bisa pakai margin auto */
+  margin: 1.5rem auto 0;      /* tengah horizontal dan ada jarak atas */
+  text-align: center;
+}
+
+.btnSubmit:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+}
+
+.btnSubmit:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.alertError {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .contentWrapper {
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    min-height: auto;
+  }
+  .imageContainer {
+    flex: unset;
+    width: 100%;
+    padding: 2rem;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .loginCard {
+    padding: 2rem 1.5rem;
+  }
+  .logoWrapper {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .logoWrapper img {
+    max-width: 120px;
+  }
+  .imageDumpTruck {
+    max-width: 150px;
+    margin-top: 1rem;
+  }
+  .navbar {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,41 @@
+      {rfqFrom === "pr_sap" && (
+            <div className="border border-gray-300 rounded-lg p-4 space-y-4">
+              <h3 className="text-lg font-semibold text-gray-800">PR SAP Filter</h3>
+              <div className="flex justify-between mb-4">
+                <label className="text-sm text-gray-600">Filter by:</label>
+                <select
+                  className="w-full border rounded-lg p-2 text-sm text-gray-600"
+                  value={prSapFilter}
+                  onChange={(e) => setPrSapFilter(e.target.value)}
+                >
+                  <option value="part_number">Part Number</option>
+                  <option value="pr_number">PR Number</option>
+                </select>
+              </div>
+              <div className="space-y-2 mb-4">
+                <label className="block text-sm font-medium text-gray-700">Filter Value</label>
+                <input
+                  type="text"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm text-gray-600"
+                  placeholder="Enter filter value..."
+                />
+              </div>
+
+              {/* Select Item Dropdown */}
+              {/* <div className="space-y-2 mb-4">
+                <label className="block text-sm font-medium text-gray-700">Select Item</label>
+                <Select
+                  options={filteredPrSapData.map((item) => ({
+                    value: item.part_number,
+                    label: `${item.part_number} - ${item.description}`,
+                    fullData: item,
+                  }))}
+                  value={selectedItem}
+                  onChange={(selectedOption) => setSelectedItem(selectedOption)}
+                  placeholder="Select an item..."
+                />
+              </div>
+            </div>
+          )} */}

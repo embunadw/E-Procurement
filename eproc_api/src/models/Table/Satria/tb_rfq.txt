@@ -1,0 +1,76 @@
+// src/models/Table/Satria/RFQ.ts
+
+import { PrismaClient as SatriaClient } from "../../../../generated/satria-client";
+
+// Inisialisasi Prisma Client
+const prisma = new SatriaClient();
+
+// Model RFQ
+export const RFQ = {
+  findUnique: (args: any) => prisma.tb_rfq.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq.findMany(args),
+  create: (args: any) => prisma.tb_rfq.create(args),
+  update: (args: any) => prisma.tb_rfq.update(args),
+  delete: (args: any) => prisma.tb_rfq.delete(args),
+  count: (args: any) => prisma.tb_rfq.count(args),
+  findFirst: (args: any) => prisma.tb_rfq.findFirst(args),
+  upsert: (args: any) => prisma.tb_rfq.upsert(args),
+};
+
+// Model RFQDetail
+export const RFQDetail = {
+  findUnique: (args: any) => prisma.tb_rfq_detail.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq_detail.findMany(args),
+  create: (args: any) => prisma.tb_rfq_detail.create(args),
+  update: (args: any) => prisma.tb_rfq_detail.update(args),
+  delete: (args: any) => prisma.tb_rfq_detail.delete(args),
+};
+
+// Model RFQKBLI
+export const RFQKBLI = {
+  findUnique: (args: any) => prisma.tb_rfq_kbli.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq_kbli.findMany(args),
+  create: (args: any) => prisma.tb_rfq_kbli.create(args),
+  update: (args: any) => prisma.tb_rfq_kbli.update(args),
+  delete: (args: any) => prisma.tb_rfq_kbli.delete(args),
+};
+
+// Model RFQVendor
+export const RFQVendor = {
+  findUnique: (args: any) => prisma.tb_rfq_vendor.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq_vendor.findMany(args),
+  create: (args: any) => prisma.tb_rfq_vendor.create(args),
+  update: (args: any) => prisma.tb_rfq_vendor.update(args),
+  delete: (args: any) => prisma.tb_rfq_vendor.delete(args),
+};
+
+// Model RFQFile
+export const RFQFile = {
+  findUnique: (args: any) => prisma.tb_rfq_file.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq_file.findMany(args),
+  create: (args: any) => prisma.tb_rfq_file.create(args),
+  update: (args: any) => prisma.tb_rfq_file.update(args),
+  delete: (args: any) => prisma.tb_rfq_file.delete(args),
+};
+
+// Model RFQPicture
+export const RFQPicture = {
+  findUnique: (args: any) => prisma.tb_rfq_picture.findUnique(args),
+  findMany: (args: any) => prisma.tb_rfq_picture.findMany(args),
+  create: (args: any) => prisma.tb_rfq_picture.create(args),
+  update: (args: any) => prisma.tb_rfq_picture.update(args),
+  delete: (args: any) => prisma.tb_rfq_picture.delete(args),
+};
+
+// Model Material (Read-Only)
+export const Material = {
+    findMany: (args: any) => prisma.material.findMany(args),
+    findUnique: (args: any) => prisma.material.findUnique(args),
+  };
+  
+  // Model Subcontractor (Read-Only)
+  export const Subcontractor = {
+    findMany: (args: any) => prisma.subcontractor.findMany(args),
+    findUnique: (args: any) => prisma.subcontractor.findUnique(args),
+  };
+  

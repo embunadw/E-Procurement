@@ -1,0 +1,69 @@
+// Contoh penggunaan:
+// <DataTable columns={columns} url="/api/users" />
+// type IUser = {
+//   id: string;
+//   name: string;
+//   email: string;
+//   personal_number: string;
+// };
+
+// const columns: ColumnDef<IUser>[] = [
+//   {
+//     accessorKey: "number",
+//     header: "#",
+//     enableSorting: false,
+//   },
+//   {
+//     accessorKey: "id",
+//     header: "ID",
+//     enableSorting: false,
+//   },
+//   {
+//     accessorKey: "name",
+//     header: "Name",
+//     enableSorting: true,
+//   },
+//   {
+//     accessorKey: "email",
+//     header: "Email",
+//     enableSorting: true,
+//   },
+//   {
+//     accessorKey: "personal_number",
+//     header: "NRP",
+//     enableSorting: true,
+//   },
+//   {
+//     accessorKey: "",
+//     header: "Action",
+//     cell: ({ row }) => {
+//       const data = row.original;
+//       console.log(data);
+//       return (
+//         <div className="flex space-x-1 justify-center">
+//           <button className={clsx(
+//             "btn btn-icon bg-blue-500 btn-xs transition-transform",
+//             "hover:scale-[105%]",
+//             "active:scale-[100%]"
+//           )}>
+//             <i className="ki-outline ki-eye text-white"></i>
+//           </button>
+//           <button className={clsx(
+//             "btn btn-icon bg-orange-500 btn-xs transition-transform",
+//             "hover:scale-[105%]",
+//             "active:scale-[100%]"
+//           )}>
+//             <i className="ki-outline ki-pencil text-white"></i>
+//           </button>
+//           <button className={clsx(
+//             "btn btn-icon bg-red-500 btn-xs transition-transform",
+//             "hover:scale-[105%]",
+//             "active:scale-[100%]"
+//           )}>
+//             <i className="ki-outline ki-trash text-white"></i>
+//           </button>
+//         </div>
+//       )
+//     }
+//   },
+// ];
